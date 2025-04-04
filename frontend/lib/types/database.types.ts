@@ -107,18 +107,21 @@ export type Database = {
           id: number
           league_year_id: number
           nickname: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
           league_year_id: number
           nickname?: string | null
+          user_id: string
         }
         Update: {
           created_at?: string
           id?: number
           league_year_id?: number
           nickname?: string | null
+          user_id?: string
         }
         Relationships: [
           {

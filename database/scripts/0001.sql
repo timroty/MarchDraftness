@@ -23,8 +23,10 @@ create table public."LeagueYearPlayer" (
   created_at timestamp with time zone not null default now(),
   league_year_id bigint not null,
   nickname text null,
+  user_id uuid not null,
   constraint LeagueYearPlayer_pkey primary key (id),
-  constraint LeagueYearPlayer_league_year_id_fkey foreign KEY (league_year_id) references "LeagueYear" (id)
+  constraint LeagueYearPlayer_league_year_id_fkey foreign KEY (league_year_id) references "LeagueYear" (id),
+  constraint LeagueYearPlayer_user_id_fkey foreign KEY (user_id) references auth.users (id)
 ) TABLESPACE pg_default;
 
 create table public."Team" (
