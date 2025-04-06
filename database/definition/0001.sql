@@ -36,6 +36,7 @@ create table public."Team" (
   seed integer not null,
   year integer not null,
   wins integer not null default 0,
+  espn_team_id integer null,
   constraint Team_pkey primary key (id)
 ) TABLESPACE pg_default;
 

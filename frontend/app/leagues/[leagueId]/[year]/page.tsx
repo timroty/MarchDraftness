@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getLeagueYearByUserId } from "@/lib/db/league-year-player";
+import SingleElimination from "@/components/bracketother";
 
 export default async function LeagueYearPage({ 
   params 
@@ -23,19 +24,20 @@ export default async function LeagueYearPage({
 
   var resolvedParams = await params;
 
-  const leagueYear = (await getLeagueYearByUserId(user.id, resolvedParams.leagueId, resolvedParams.year))?.league_year
+  const year = Number(resolvedParams.year)
+  const leagueId = Number(resolvedParams.leagueId)
+  
+  const leagueYear = (await getLeagueYearByUserId(user.id, leagueId, year))?.league_year
 
   if (!leagueYear) {
     return redirect("/leagues");
   }
 
   const leagueName = leagueYear.league.name
-  const year = resolvedParams.year
-  const leagueId = resolvedParams.leagueId
-  
+
   return (
     <div className="flex flex-col gap-8 w-full">
-      <div className="max-w-7xl mx-auto w-full px-4">
+      <div className="max-w-screen mx-auto w-full px-4">
         <div className="flex items-center gap-2 mb-6">
           <Link href="/leagues" className="text-blue-600 hover:underline">
             Leagues
@@ -68,6 +70,10 @@ export default async function LeagueYearPage({
               <p className="text-gray-600">Standings will be available once the tournament begins.</p>
             </div>
           </div>
+        </div>
+
+        <div className="overflow-x-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
+          <SingleElimination></SingleElimination>
         </div>
       </div>
     </div>

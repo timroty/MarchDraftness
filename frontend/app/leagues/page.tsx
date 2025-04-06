@@ -57,7 +57,7 @@ export default async function LeaguesPage() {
                         <h3 className="text-xl font-semibold">
                           {league.league_year.league.name}
                         </h3>
-                        <ChevronRight className="h-5 w-5 text-gray-500" />
+                        <ChevronRight className="h-5 w-5 ml-2 pl-1 text-gray-500" />
                       </Link>
                     ))}
                   </div>

@@ -19,7 +19,7 @@ const leagueYearPlayerQuery = supabase.from('LeagueYearPlayer').select(`
 
 type LeagueYearPlayerQueryResult = QueryData<typeof leagueYearPlayerQuery>[0]
 
-export async function getLeagueYearByUserId(userId: string, leagueId: string, year: string): Promise<LeagueYearPlayerQueryResult | null> {
+export async function getLeagueYearByUserId(userId: string, leagueId: number, year: number): Promise<LeagueYearPlayerQueryResult | null> {
   const { data, error } = await leagueYearPlayerQuery
     .eq('user_id', userId)
     .eq('league_year.league.id', leagueId)
