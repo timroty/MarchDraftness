@@ -3,6 +3,9 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getLeagueYearByUserId } from "@/lib/db/league-year-player";
 import SingleElimination from "@/components/bracketother";
+import GameBracket from "@/components/bracket";
+import { getBracketForYear } from "@/lib/db/bracket-game";
+import { createRoundsAndSeeds } from "@/lib/bracket/utils";
 
 export default async function LeagueYearPage({ 
   params 
@@ -33,7 +36,10 @@ export default async function LeagueYearPage({
     return redirect("/leagues");
   }
 
-  const leagueName = leagueYear.league.name
+  const leagueName = leagueYear.league.name;
+
+  const bracketForYear = await getBracketForYear(2025);
+  const rounds = createRoundsAndSeeds(bracketForYear ?? []);
 
   return (
     <div className="flex flex-col gap-8 w-full">
@@ -72,8 +78,8 @@ export default async function LeagueYearPage({
           </div>
         </div>
 
-        <div className="overflow-x-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
-          <SingleElimination></SingleElimination>
+        <div className="overflow-x-auto max-w-md md:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
+          <GameBracket rounds={rounds}></GameBracket>
         </div>
       </div>
     </div>
